@@ -1,0 +1,35 @@
+{% extends '_layout.html' %}
+{% block body %}
+<div class="container">
+    <h2>Керування спільним доступом до папок</h2>
+
+    {% if folder_shares %}
+        <div class="shares-grid">
+            {% for folder, shares in folder_shares.items() %}
+                {% for share in shares %}
+                    <div class="share-card">
+                        <div class="share-info">
+                            <p><strong>Папка:</strong> {{ folder.name }}</p>
+                            <p><strong>Користувач:</strong> {{ share.user.username }}</p>
+                        </div>
+                        <div class="share-actions">
+                            <form method="POST" action="{{ url_for('shares.update_share', share_id=share.id) }}" class="inline-form">
+                                <label><input type="checkbox" name="can_edit" value="true" {% if share.can_edit %}checked{% endif %}> Може редагувати</label>
+                                <label><input type="checkbox" name="can_delete" value="true" {% if share.can_delete %}checked{% endif %}> Може видаляти</label>
+                                <button type="submit" class="btn-small">Оновити</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('shares.revoke_share', share_id=share.id) }}" class="inline-form delete-form">
+                                <button type="submit" class="btn-revoke" onclick="return confirm('Забрати доступ для {{ share.user.username }}?')"><i class="fas fa-times"></i> Забрати доступ</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="empty-message">Наразі немає спільних папок.</p>
+    {% endif %}
+
+    <a href="{{ url_for('gallery.galleries') }}" class="btn">Назад до галереї</a>
+</div>
+{% endblock %}

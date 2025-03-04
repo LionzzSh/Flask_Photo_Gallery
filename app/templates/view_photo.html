@@ -1,0 +1,13 @@
+{% extends '_layout.html' %}
+{% block body %}
+<div class="container">
+    <div class="photo-viewer">
+        <h2>{{ photo.filename }}</h2>
+        <img src="{{ url }}" alt="{{ photo.filename }}">
+        <div class="photo-actions">
+            <a href="{{ url }}" download="{{ photo.filename }}" class="btn"><i class="fas fa-download"></i> Завантажити</a>
+            <a href="{{ url_for('folder.view_folder', folder_id=photo.folder_id) if photo.folder_id else url_for('gallery.galleries') }}" class="btn"><i class="fas fa-arrow-left"></i> Закрити</a> 
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends '_layout.html' %}
+{% block body %}
+<div class="container">
+    <h2>Моя галерея</h2>
+
+    <div class="action-section">
+        <h3>Створити папку</h3>
+        <form method="POST" action="{{ url_for('gallery.create_folder') }}" class="form">
+            <input type="text" name="name" placeholder="Назвіть папку" required>
+            <select name="parent_id">
+                <option value="">Нова папка</option>
+                {% for folder in folders recursive %}
+                    <option value="{{ folder.id }}">{{ folder.name }}</option>
+                    {% for subfolder in folder.subfolders %}
+                        <option value="{{ subfolder.id }}">-- {{ subfolder.name }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn"><i class="fas fa-folder-plus"></i> Створити</button>
+        </form>
+
+        <h3>Завантажити фото</h3>
+        <form method="POST" action="{{ url_for('gallery.upload') }}" enctype="multipart/form-data" class="form" id="upload-form">
+            <div class="custom-file-upload">
+                <button type="button" class="btn custom-file-button" id="custom-file-trigger">Оберіть файл</button>
+                <span id="file-name">Жодного файлу не вибрано</span>
+                <input type="file" name="file" id="file-input" required style="display: none;">
+            </div>
+            <select name="folder_id">
+                <option value=""><Завантажити без папки></option>
+                {% for folder in folders recursive %}
+                    <option value="{{ folder.id }}">{{ folder.name }}</option>
+                    {% for subfolder in folder.subfolders %}
+                        <option value="{{ subfolder.id }}">-- {{ subfolder.name }}</option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn"><i class="fas fa-upload"></i> Завантажити</button>
+        </form>
+    </div>
+
+    <h3>Мої папки</h3>
+    <div class="folder-grid">
+        {% for folder in folders %}
+            <div class="folder-card">
+                <a href="{{ url_for('folder.view_folder', folder_id=folder.id) }}">
+                    <i class="fas fa-folder folder-icon owned"></i>
+                    <span>{{ folder.name }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Спільні папки</h3>
+    <div class="folder-grid">
+        {% for folder in shared_folders %}
+            <div class="folder-card">
+                <a href="{{ url_for('folder.view_folder', folder_id=folder.id) }}">
+                    <i class="fas fa-folder folder-icon shared"></i>
+                    <span>{{ folder.name }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Мої фотографії</h3>
+    <div class="gallery-grid">
+        {% for photo in photos %}
+            <div class="photo-card">
+                <a href="{{ url_for('photo.view_photo', photo_id=photo.id) }}">
+                    <img src="https://{{ config.AWS_BUCKET_NAME }}.s3.{{ config.AWS_REGION }}.amazonaws.com/{{ photo.s3_key }}" alt="{{ photo.filename }}">
+                </a>
+                <form method="POST" action="{{ url_for('photo.delete_photo', photo_id=photo.id) }}" class="delete-form">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Ви впевнені?')"><i class="fas fa-trash"></i> Видалити</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('file-input');
+    const customFileTrigger = document.getElementById('custom-file-trigger');
+    const fileName = document.getElementById('file-name');
+
+    customFileTrigger.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            fileName.textContent = `Вибрано: ${file.name}`;
+        } else {
+            fileName.textContent = 'Жодного файлу не вибрано';
+        }
+    });
+</script>
+{% endblock %}

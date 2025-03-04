@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотоальбом</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <h1 class="logo"><i class="fas fa-camera"></i> Фотоальбом</h1>
+            <nav class="main-nav">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('gallery.galleries') }}"><i class="fas fa-images"></i> Галерея</a>
+                    <a href="{{ url_for('shares.manage_shares') }}"><i class="fas fa-users"></i> Керувати доступом</a>
+                    <a href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Вийти</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}"><i class="fas fa-sign-in-alt"></i> Увійти</a>
+                    <a href="{{ url_for('auth.register') }}"><i class="fas fa-user-plus"></i> Зареєструватися</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    <main class="site-main">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for message in messages %}
+                        <p class="flash">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <p>© 2025 Lionzz Photo Album</p>
+    </footer>
+</body>
+</html>

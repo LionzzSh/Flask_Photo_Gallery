@@ -1,0 +1,115 @@
+{% extends '_layout.html' %}
+{% block body %}
+<div class="container">
+    <h2>{{ folder.name }}</h2>
+
+    <nav class="breadcrumbs">
+        <a href="{{ url_for('gallery.galleries') }}">На головну сторінку</a> 
+        {% for f in path %}
+        / <a href="{{ url_for('folder.view_folder', folder_id=f.id) }}">{{ f.name }}</a>
+        {% endfor %}
+    </nav>
+
+    <h3>Вкладені папки</h3>
+    <div class="folder-grid">
+        {% for subfolder in subfolders %}
+            <div class="folder-card">
+                <a href="{{ url_for('folder.view_folder', folder_id=subfolder.id) }}">
+                    <i class="fas fa-folder folder-icon owned"></i>
+                    <span>{{ subfolder.name }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h3>Фотографії</h3>
+    <div class="gallery-grid">
+        {% for photo in photos %}
+            <div class="photo-card">
+                <a href="{{ url_for('photo.view_photo', photo_id=photo.id) }}">
+                    <img src="https://{{ config.AWS_BUCKET_NAME }}.s3.{{ config.AWS_REGION }}.amazonaws.com/{{ photo.s3_key }}" alt="{{ photo.filename }}">
+                </a>
+                {% if folder.user_id == current_user.id or (share and share.can_delete) %}
+                    <form method="POST" action="{{ url_for('photo.delete_photo', photo_id=photo.id) }}" class="delete-form">
+                        <button type="submit" class="btn btn-delete" onclick="return confirm('Ви впевнені?')"><i class="fas fa-trash"></i> Видалити</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if folder.user_id == current_user.id or (share and share.can_edit) %}
+        <div class="action-section">
+            <h3>Завантажити фото</h3>
+            <form method="POST" action="{{ url_for('gallery.upload') }}" enctype="multipart/form-data" class="form" id="upload-form">
+                <div class="custom-file-upload">
+                    <button type="button" class="btn custom-file-button" id="custom-file-trigger">Оберіть файл</button>
+                    <span id="file-name">Жодного файлу не вибрано</span>
+                    <input type="file" name="file" id="file-input" required style="display: none;">
+                </div>
+                <input type="hidden" name="folder_id" value="{{ folder.id }}">
+                <button type="submit" class="btn"><i class="fas fa-upload"></i> Завантажити</button>
+            </form>
+
+            <h3>Створити вкладену папку</h3>
+            <form method="POST" action="{{ url_for('gallery.create_folder') }}" class="form">
+                <input type="text" name="name" placeholder="Назва вкладеної папки" required>
+                <input type="hidden" name="parent_id" value="{{ folder.id }}">
+                <button type="submit" class="btn"><i class="fas fa-folder-plus"></i> Створити</button>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if folder.user_id == current_user.id %}
+        <div class="action-section">
+            <h3>Додати користувача до цієї папки</h3>
+            <form method="POST" action="{{ url_for('folder.share_folder', folder_id=folder.id) }}" class="form">
+                <input type="text" name="username" placeholder="Ім'я користувача" required>
+                <label><input type="checkbox" name="can_edit" value="true"> Можна редагувати</label>
+                <label><input type="checkbox" name="can_delete" value="true"> Можна видаляти</label>
+                <button type="submit" class="btn"><i class="fas fa-share"></i> Поділитися</button>
+            </form>
+
+            <h3>Поділився з</h3>
+            <ul class="shared-list">
+                {% for share in shares %}
+                    <li>{{ share.user.username }} - 
+                        {% if share.can_edit and share.can_delete %}
+                        Повний доступ
+                        {% elif share.can_edit %}
+                        Може переглядати та завантажувати
+                        {% else %}
+                        Може лише переглядати фотографії
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <form method="POST" action="{{ url_for('folder.delete_folder', folder_id=folder.id) }}" class="delete-form">
+                <button type="submit" class="btn btn-delete" onclick="return confirm('Видалити папку та весь вміст?')"><i class="fas fa-trash"></i> Видалити папку</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('gallery.galleries') }}" class="btn">Назад до галереї</a>
+</div>
+
+<script>
+    const fileInput = document.getElementById('file-input');
+    const customFileTrigger = document.getElementById('custom-file-trigger');
+    const fileName = document.getElementById('file-name');
+
+    customFileTrigger.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            fileName.textContent = `Вибрано: ${file.name}`;
+        } else {
+            fileName.textContent = 'Жодного файлу не вибрано';
+        }
+    });
+</script>
+{% endblock %}
