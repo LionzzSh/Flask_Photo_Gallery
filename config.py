@@ -10,8 +10,8 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('SENDER_EMAIL') 
     MAIL_PASSWORD = os.environ.get('GOOGLE_APP_PASSWORD') 
-    AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY') or 'AKIAQ4NSBOVJCJPR5PE4'
-    AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY') or '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'
+    AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY')
+    AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY')
     AWS_BUCKET_NAME = 'lionzzgallery'
     AWS_REGION = 'eu-north-1'
     GITHUB_CLIENT_ID = os.environ.get('GITHUB_CLIENT_ID')
