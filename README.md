@@ -123,7 +123,7 @@
 ## Контакти
 Автор: LionzzSh
 <br>
-Email: lionzzbritish.com
+Email: lionzzbritish@gmail.com
 <br>
 GitHub: https://github.com/LionzzSh
 <br>
