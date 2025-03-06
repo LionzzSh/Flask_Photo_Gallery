@@ -73,37 +73,37 @@
    ```bash
    git clone https://github.com/LionzzSh/Flask_Photo_Gallery.git
    cd Flask_Photo_Gallery
-
+     ```
 2. Створіть віртуальне середовище:
 Можна встановлювати без віртуального середовища,проте це робиться щоб не викликати можливих конфліктів у ваших інших проектах
  ```bash
-python -m venv venv
-
-source venv/bin/activate  # На Linux/Mac
-
-venv\Scripts\activate     # На Windows
- ```
+   python -m venv venv
+   
+   source venv/bin/activate  # На Linux/Mac
+   
+   venv\Scripts\activate     # На Windows
+  ```
 
 3. Встановіть залежності:
 ```bash
 pip install -r requirements.txt
- ```
+  ```
 
 4.Налаштуйте змінні середовища (створіть файл .env):
-```bash
-FLASK_SECRET_KEY=your-secret-key
-AWS_ACCESS_KEY=your-aws-access-key
-AWS_SECRET_KEY=your-aws-secret-key
-AWS_BUCKET_NAME=your-bucket-name
-AWS_REGION=your-region
-FLASK_ENV=development
- ```
+   ```bash
+   FLASK_SECRET_KEY=your-secret-key
+   AWS_ACCESS_KEY=your-aws-access-key
+   AWS_SECRET_KEY=your-aws-secret-key
+   AWS_BUCKET_NAME=your-bucket-name
+   AWS_REGION=your-region
+   FLASK_ENV=development
+  ```
 (Не додавайте .env до Git. Додайте його до .gitignore.)
 
 ##Використання:
 Запустіть додаток локально:
 ```bash
-python run.py
+   python run.py
  ```
 Відкрийте браузер і перейдіть за адресою http://localhost:5000.
 Зареєструйтеся, увійдіть і почніть завантажувати фотографії або створювати папки.
