@@ -122,6 +122,9 @@
 
 ## Контакти
 Автор: LionzzSh
+<br>
 Email: [Lionzzbritish.com]
+<br>
 GitHub: https://github.com/LionzzSh
+<br>
 Будь ласка, зв’яжіться зі мною для питань, пропозицій або ідей співпраці!
