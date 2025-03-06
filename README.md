@@ -76,18 +76,18 @@
      ```
 2. Створіть віртуальне середовище:
 Можна встановлювати без віртуального середовища,проте це робиться щоб не викликати можливих конфліктів у ваших інших проектах
- ```bash
+   ```bash
    python -m venv venv
    
    source venv/bin/activate  # На Linux/Mac
    
    venv\Scripts\activate     # На Windows
-  ```
+     ```
 
 3. Встановіть залежності:
-```bash
-pip install -r requirements.txt
-  ```
+   ```bash
+   pip install -r requirements.txt
+     ```
 
 4.Налаштуйте змінні середовища (створіть файл .env):
    ```bash
@@ -97,14 +97,14 @@ pip install -r requirements.txt
    AWS_BUCKET_NAME=your-bucket-name
    AWS_REGION=your-region
    FLASK_ENV=development
-  ```
+   ```
 (Не додавайте .env до Git. Додайте його до .gitignore.)
 
 ##Використання:
 Запустіть додаток локально:
-```bash
+   ```bash
    python run.py
- ```
+   ```
 Відкрийте браузер і перейдіть за адресою http://localhost:5000.
 Зареєструйтеся, увійдіть і почніть завантажувати фотографії або створювати папки.
 
