@@ -4,41 +4,39 @@
 ![Python Version](https://img.shields.io/badge/Python-3.10-blue)  
 ![Deployed](https://img.shields.io/website?down_color=red&down_message=Down&up_color=green&up_message=Up&url=https%3A%2F%2Flionzz.pythonanywhere.com%2F)
 
-Welcome to **Flask Photo Gallery**, a modern web application built with Flask for managing photo galleries. This project allows users to authenticate, upload photos, organize them into folders, and share with others, with all images stored securely on AWS S3. The app is deployed and live at [https://lionzz.pythonanywhere.com/](https://lionzz.pythonanywhere.com/).
+Ласкаво просимо до **Flask Photo Gallery**, сучасної веб-програми, створеної за допомогою Flask для керування фотогалереями. Цей проект дозволяє користувачам автентифікуватися, завантажувати фотографії, упорядковувати їх у папки та ділитися з іншими, при цьому всі зображення надійно зберігаються на AWS S3. Додаток розгорнуто та працює на сайті[https://lionzz.pythonanywhere.com/](https://lionzz.pythonanywhere.com/).
 
-## Table of Contents
-- [Features](#features)
-- [Screenshots](#screenshots)
+## Зміст 
+- [Функції](#Функції)
+- [Скріншоти](#скріншоти)
 - [Tech Stack](#tech-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- [Встановлення](#встановлення)
+- [Використання](#використання)
+- [Розгортання](#deployment)
+- [Внесок](#внесення)
+- [Ліцензія](#ліцензія)
+- [Контакт](#contact)
 
-## Features
-- **User Authentication**: Register and log in with secure password hashing using Flask-Bcrypt.
-- **Photo Management**: Upload, view, edit, and delete photos.
-- **Folder Organization**: Create and manage folders to categorize your photos.
-- **AWS S3 Integration**: Store photos securely in Amazon S3 with boto3.
-- **Sharing**: Generate shareable links for photos or folders.
-- **Responsive Design**: Basic HTML/CSS templates for a user-friendly interface.
+## Функції
+- **Автентифікація користувача**: зареєструйтеся та увійдіть із безпечним хешуванням пароля за допомогою Flask-Bcrypt.
+- **Керування фотографіями**: завантажуйте, переглядайте, редагуйте та видаляйте фотографії.
+- **Організація папок**: створюйте та керуйте папками для категоризації своїх фотографій.
+- **Інтеграція з AWS S3**: надійно зберігайте фотографії в Amazon S3 за допомогою boto3.
+- **Спільний доступ**: створюйте посилання для спільного використання для фотографій або папок.
+- **Адаптивний дизайн**: базові шаблони HTML/CSS для зручного інтерфейсу.
 
-## Screenshots
-![Login Page](insert-screenshot-login.jpg)  
-*Login Page: User authentication interface.*  
+## Скріншоти
+![Сторінка входу](insert-screenshot-login.jpg)
+*Сторінка входу: інтерфейс автентифікації користувача.*
 
-![Gallery View](insert-screenshot-gallery.jpg)  
-*Gallery View: Display of photos in a grid layout.*  
+![Перегляд галереї](insert-screenshot-gallery.jpg)
+*Перегляд галереї: відображення фотографій у вигляді сітки.*
 
-![Folder Management](insert-screenshot-folders.jpg)  
-*Folder Management: Creating and organizing photo folders.*  
+![Керування папками](insert-screenshot-folders.jpg)
+*Керування папками: створення та впорядкування папок із фотографіями.*
 
-![Upload Photo](insert-screenshot-upload.jpg)  
-*Upload Photo: Interface for uploading images to AWS S3.*  
-
-*(Insert your screenshots here. Replace `insert-screenshot-login.jpg`, etc., with the actual file names of the images you provide. Upload them to the repo and link them accordingly.)*
+![Завантажити фото](insert-screenshot-upload.jpg)
+*Завантажити фото: інтерфейс для завантаження зображень в AWS S3.*
 
 ## Tech Stack
 - **Backend**: Flask, Flask-SQLAlchemy, Flask-Login, Flask-Bcrypt, boto3
@@ -48,8 +46,3 @@ Welcome to **Flask Photo Gallery**, a modern web application built with Flask fo
 - **Version Control**: Git, GitHub
 - **Python Version**: 3.10
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/LionzzSh/Flask_Photo_Gallery.git
-   cd Flask_Photo_Gallery
